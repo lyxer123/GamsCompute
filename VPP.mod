@@ -138,3 +138,7 @@ subject to LocalEnergyBalance{t in T, s in S}:
 
 subject to PVPowerAllocation{w in W, t in T}:
   P_PV[w,t] = P_community[w,t] + P_sold_PV[w,t];
+
+# ================== 求解器配置 ==================
+option solver cplex;    # 显式指定使用CPLEX
+solve;
