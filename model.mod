@@ -140,8 +140,11 @@ subject to PVPowerAllocation{w in W, t in T}:
   P_PV[w,t] = P_community[w,t] + P_sold_PV[w,t];
 
 # ================== 数据加载 ==================
-data VPP.dat;    # 显式加载数据文件
+data model.dat;    # 显式加载数据文件
 
 # ================== 求解器配置 ==================
 option solver cplex;    # 显式指定使用CPLEX
 solve;
+
+# ================== 结果输出 ==================
+display TotalCost;
