@@ -103,8 +103,8 @@ subject to EV_SOC_Limits{w in W, t in T}:
     SOC_EV_min[w] <= SOC_EV[w,t] <= SOC_EV_max[w];
 
 # ---------- 设备阶段连续性约束（公式10-15） ----------
-subject to PhaseStart{w in W, t in T, c in C, f in F}:
-  x_phase_start[w,t,c,f] <= 1 - x_phase_active[w,t-1,c,f];
+subject to PhaseStart{w in W, t in T, c in C, f in F: t > 1}:
+   x_phase_start[w,t,c,f] <= 1 - x_phase_active[w,t-1,c,f];
 
 subject to PhaseActivation{w in W, t in T, c in C, f in F}:
   x_phase_active[w,t,c,f] >= x_phase_start[w,t,c,f] - x_phase_end[w,t,c,f];
