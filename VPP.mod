@@ -109,7 +109,7 @@ subject to PhaseStart{w in W, t in T, c in C, f in F: t > 1}:
 subject to PhaseActivation{w in W, t in T, c in C, f in F}:
   x_phase_active[w,t,c,f] >= x_phase_start[w,t,c,f] - x_phase_end[w,t,c,f];
 
-subject to PhaseDuration{w in W, t in T, c in C, f in F}:
+subject to PhaseDuration{w in W, t in T, c in C, f in F: t + phase_duration[w,c,f] -1 <= card(T)}:
   sum{tau in t..t+phase_duration[w,c,f]-1} x_phase_active[w,tau,c,f] >= phase_duration[w,c,f] * x_phase_start[w,t,c,f];
 
 # ---------- ESS充放电互斥约束（修正后） ----------
