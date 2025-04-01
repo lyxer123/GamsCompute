@@ -142,3 +142,6 @@ subject to PVPowerAllocation{w in W, t in T}:
 # ================== 求解器配置 ==================
 option solver cplex;    # 显式指定使用CPLEX
 solve;
+
+# ================== 数据加载 ==================
+data;
