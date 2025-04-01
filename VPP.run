@@ -1,0 +1,3 @@
+option solver cplex;
+solve;
+display _solve_time, _numvars, _numconstraints, _obj;
