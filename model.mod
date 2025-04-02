@@ -140,7 +140,8 @@ subject to PVPowerAllocation{w in W, t in T}:
   P_PV[w,t] = P_community[w,t] + P_sold_PV[w,t];
 
 # ================== 数据加载 ==================
-data /tmp/model.dat;  # 显式指定绝对路径
+#data;  # 显式指定绝对路径
+include "model.dat";
 
 # ================== 求解器配置 ==================
 option solver cplex;    # 显式指定使用CPLEX
