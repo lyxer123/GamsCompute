@@ -131,6 +131,11 @@ subject to LocalEnergyBalance{t in T, s in S}:
 subject to PVPowerAllocation{w in W, t in T}:
   P_PV[w,t] = P_community[w,t] + P_sold_PV[w,t];
   
+# ================== 光伏时间验证 ==================
+subject to PV_Time_Validation{w in W, t in T}:
+  if t < 8 or t > 17 then  # 8:00-17:00之外强制为0
+    P_PV[w,t] = 0;
+  
   # ================== 计算各设备总功率 ==================
 subject to Calculate_DW{w in W, t in T}:
     Total_DW[w,t] = sum{f in F} (x_phase_active[w,t,'DW',f] * P_consumption[w,'DW',f]);

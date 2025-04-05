@@ -1,9 +1,8 @@
-# ================== 集合定义 ==================
-set T ordered := 0..23;          # 时间周期集合（24小时，从0开始）
-set S;                  # 场景集合（s1,s2,s3）
-set W := {1,2,3};       # 产消者集合（对应3个VPP）
-set C := {'HVAC', 'WM', 'DW'};  # 可控设备集合
-set F := {'f1','f2'};   # 设备运行阶段集合            
+set T ordered;          
+set S;                  
+set W := {1,2,3};       
+set C := {'HVAC', 'WM', 'DW'};  
+set F;             
 
 param eta_ESS_charge{W};        
 param ESS_charge_rate{W};       
