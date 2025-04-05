@@ -1,2 +1,45 @@
+# model.run - 输出所有功率分量数据
+
+# 求解模型
+option solver cplex;
 solve;
-display _solve_time, _obj;
+
+# 输出各功率分量数据
+printf "\n\n=============== 功率分量数据 (0-23时) ===============\n";
+
+# 输出表头
+printf "Time\tDW\tWM\tHVAC\tInfLoad\tESS_ch\tEV_ch\tPV\tESS_dis\tEV_dis\tGrid\tPrice\n";
+
+# 输出每个时间点的数据
+for {t in T} {
+    printf "%d", t;
+    
+    # 输出各功率分量（汇总所有产消者W）
+    printf "\t%.2f", sum{w in W} Total_DW[w,t];
+    printf "\t%.2f", sum{w in W} Total_WM[w,t];
+    printf "\t%.2f", sum{w in W} Total_HVAC[w,t];
+    printf "\t%.2f", sum{w in W} Total_InfLoad[w,t];
+    printf "\t%.2f", sum{w in W} Total_ESS_charge[w,t];
+    printf "\t%.2f", sum{w in W} Total_EV_charge[w,t];
+    printf "\t%.2f", sum{w in W} Total_PV[w,t];
+    printf "\t%.2f", sum{w in W} Total_ESS_discharge[w,t];
+    printf "\t%.2f", sum{w in W} Total_EV_discharge[w,t];
+    printf "\t%.2f", sum{w in W} Total_Grid[w,t];
+    
+    # 输出电价
+    printf "\t%.2f\n", energy_price_buy[t];
+}
+
+# 输出SOC状态
+printf "\n\n=============== ESS和EV的SOC状态 ===============\n";
+printf "Time\tESS_SOC\tEV_SOC\n";
+for {t in T} {
+    printf "%d\t%.2f\t%.2f\n", t, sum{w in W} SOC_ESS[w,t], sum{w in W} SOC_EV[w,t];
+}
+
+# 保存到文件
+printf "\n数据已保存到results.txt\n" > results.txt;
+close results.txt;
+
+# 调用Python可视化脚本
+shell "python visualize.py";
