@@ -37,9 +37,3 @@ for {t in T} {
     printf "%d\t%.2f\t%.2f\n", t, sum{w in W} SOC_ESS[w,t], sum{w in W} SOC_EV[w,t];
 }
 
-# 保存到文件
-printf "\n数据已保存到results.txt\n" > results.txt;
-close results.txt;
-
-# 调用Python可视化脚本
-shell "python visualize.py";
